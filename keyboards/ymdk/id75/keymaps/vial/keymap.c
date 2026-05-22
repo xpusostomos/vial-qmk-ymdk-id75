@@ -62,6 +62,38 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define WHITE 255, 255, 255
 #define BLACK 0, 0, 0
 
+#define RED_HUE 0
+#define YELLOW_HUE 43
+#define GREEN_HUE 85
+#define CYAN_HUE 128
+#define BLUE_HUE 170
+#define MAGENTA_HUE 213
+
+/* #define NUMBERS_CLR WHITE */
+/* #define PAD_ARROW_CLR RED */
+/* #define MOVEMENT_CLR BLUE */
+/* #define CAPS_CLR WHITE */
+/* #define FKEY_CLR GREEN */
+/* #define RGB_CLR RED */
+/* #define MEDIA_CLR MAGENTA */
+/* #define VOL_CLR YELLOW */
+/* #define BRIGHT_CLR YELLOW */
+
+#define NUMBERS_CLR YELLOW_HUE
+#define PAD_ARROW_CLR RED_HUE
+#define MOVEMENT_CLR BLUE_HUE
+#define CAPS_CLR MAGENTA_HUE
+#define FKEY_CLR GREEN_HUE
+#define RGB_CLR RED_HUE
+#define MEDIA_CLR MAGENTA_HUE
+#define VOL_CLR YELLOW_HUE
+#define BRIGHT_CLR YELLOW_HUE
+
+#define NUMBER_LAYER 1
+#define MOVEMENT_LAYER 2
+#define FUNCTION_LAYER 3
+#define EXTRA_LAYER 4
+
 /**
  * Resolves the active keycode at a specific coordinate by walking down 
  * the layer stack from the current active layer to Layer 0.
@@ -71,6 +103,7 @@ uint16_t get_resolved_keycode(uint8_t row, uint8_t col) {
     
     for (int i = layer; i >= 0; i--) {
         uint16_t keycode = dynamic_keymap_get_keycode(i, row, col);
+
         if (keycode != KC_TRNS) {
             return keycode;
         }
@@ -81,9 +114,13 @@ uint16_t get_resolved_keycode(uint8_t row, uint8_t col) {
 static bool host_is_muted = false;
 
 static bool custom_lighting = false;
+#define set_color(idx, huev) set = true; hue = huev;
 
 bool rgb_matrix_indicators_user(void) {
   uint8_t layer = get_highest_layer(layer_state);
+  //  uint8_t current_hue = rgb_matrix_get_hue();
+  uint8_t current_sat = rgb_matrix_get_sat();
+  uint8_t current_val = rgb_matrix_get_val();
   
   for (uint8_t row = 0; row < 5; row++) {
 	for (uint8_t col = 0; col < 15; col++) {
@@ -94,6 +131,8 @@ bool rgb_matrix_indicators_user(void) {
 	  uint16_t keycodec = keymap_key_to_keycode(layer, (keypos_t){.row = row, .col = col});
 	  // This is the "proper" QMK way to find the active keycode
 	  uint16_t keycode = get_resolved_keycode(row, col);
+	  uint8_t hue;
+	  bool set = false;
 		  
 	  uint8_t led_idx = g_led_config.matrix_co[row][col];
 
@@ -102,32 +141,55 @@ bool rgb_matrix_indicators_user(void) {
 	  }
 
 	  if (led_idx < RGB_MATRIX_LED_COUNT) {
-		if (!host_keyboard_led_state().num_lock && keycode == KC_NUM_LOCK) {
-		  rgb_matrix_set_color(led_idx, WHITE);
-		} else if (IS_LAYER_ON(1) && keycode == TG(1)) {
-		  rgb_matrix_set_color(led_idx, WHITE);
-		} else if ((keycode & 0xFF) == KC_CAPS || (keycode >= KC_A && keycode <= KC_Z)) {
+		/* if (!host_keyboard_led_state().num_lock && keycode == KC_NUM_LOCK) { */
+		/*   rgb_matrix_set_color(led_idx, PAD_ARROW_CLR); */
+		/* /\* } else if (IS_LAYER_ON(NUMBER_LAYER) && keycode == TG(1)) { *\/ */
+		/*   rgb_matrix_set_color(led_idx, NUMBERS); */
+		/* } else */
+		if ((keycode & 0xFF) == KC_CAPS || (keycode >= KC_A && keycode <= KC_Z)) {
 		  if (host_keyboard_led_state().caps_lock) {
-			rgb_matrix_set_color(led_idx, WHITE);
+			set_color(led_idx, CAPS_CLR);
 		  }
-		} else if (layer == 4) {
+		} else if (layer == EXTRA_LAYER) {
 		  /* if ((col >= 1 && col < 13 && row < 2) */
 		  if (keycodec != KC_TRNS && keycodec != KC_NO) {
-			rgb_matrix_set_color(led_idx, GREEN);
+			set_color(led_idx, GREEN_HUE);
 		  }
 		/*   if ((keycode >= KC_F1 && keycode <= KC_F24) */
 		/* 	  || keycode == KC_CUT || keycode == KC_COPY || keycode == KC_PSTE) { */
 		/* 	rgb_matrix_set_color(led_idx, GREEN); */
 		/* 	} */
-		} else if (IS_LAYER_ON(1) || IS_LAYER_ON(2) || IS_LAYER_ON(3)) {
-		  if (keycode0 == TG(1)) {
-			rgb_matrix_set_color(led_idx, BLUE);
+		} else if (IS_LAYER_ON(NUMBER_LAYER) || IS_LAYER_ON(MOVEMENT_LAYER) || IS_LAYER_ON(FUNCTION_LAYER)) {
+		  if (keycode0 == TG(NUMBER_LAYER)) {
+			if (IS_LAYER_ON(MOVEMENT_LAYER)) {
+			  set_color(led_idx, MOVEMENT_CLR);
+			} else if (IS_LAYER_ON(NUMBER_LAYER)) {
+			  set_color(led_idx, NUMBERS_CLR);
+			}
 		  }
 		  switch (keycodec) {
+		  case KC_TILD:
+		  case KC_EXLM:
+		  case KC_AT:
+		  case KC_HASH:
+		  case KC_DLR:
+		  case KC_PERC:
+		  case KC_CIRC:
+		  case KC_AMPR:
+		  case KC_ASTR:
+		  case KC_LPRN:
+		  case KC_RPRN:
+		  case KC_MINUS:
 		  case KC_KP_MINUS:
 		  case KC_KP_PLUS:
 		  case KC_KP_SLASH:
 		  case KC_KP_ASTERISK:
+		  case KC_KP_EQUAL:
+		  case KC_LT:
+		  case KC_GT:
+		  case KC_PSCR:
+			set_color(led_idx, NUMBERS_CLR);
+			break;
 		  case KC_KP_9:
 		  case KC_KP_8:
 		  case KC_KP_7:
@@ -136,17 +198,19 @@ bool rgb_matrix_indicators_user(void) {
 		  case KC_KP_4:
 		  case KC_KP_3:
 		  case KC_KP_2:
+
 		  case KC_KP_1:
 		  case KC_KP_0:
-		  case KC_KP_EQUAL:
-		  case KC_NUM_LOCK:
 		  case KC_KP_DOT:
-		  case KC_LPRN:
-		  case KC_RPRN:
-			rgb_matrix_set_color(led_idx, WHITE);
+		  case KC_NUM_LOCK:
+			if (host_keyboard_led_state().num_lock) {
+			  set_color(led_idx, NUMBERS_CLR);
+			} else {
+			  set_color(led_idx, PAD_ARROW_CLR);
+			}
 			break;
 		  case QK_BOOT:
-			rgb_matrix_set_color(led_idx, RED);
+			set_color(led_idx, RED_HUE);
 			break;
 		  case KC_F1:
 		  case KC_F2:
@@ -175,14 +239,15 @@ bool rgb_matrix_indicators_user(void) {
 		  case KC_CUT:
 		  case KC_COPY:
 		  case KC_PSTE:
-			rgb_matrix_set_color(led_idx, GREEN);
+			set_color(led_idx, FKEY_CLR);
 			break;
 		  case KC_BRIU:
 		  case KC_BRID:
+			set_color(led_idx, BRIGHT_CLR);
 		  case KC_VOLU:
 		  case KC_VOLD:
 		  case KC_MUTE:
-			rgb_matrix_set_color(led_idx, MAGENTA);
+			set_color(led_idx, VOL_CLR);
 			break;
 		  case RGB_RMOD:
 		  case RGB_MOD:
@@ -196,13 +261,13 @@ bool rgb_matrix_indicators_user(void) {
 		  case RGB_HUI:
 		  case RGB_SAD:
 		  case RGB_SAI:
-			rgb_matrix_set_color(led_idx, RED);
+			set_color(led_idx, RGB_CLR);
 			break;
 		  case KC_MPRV:
 		  case KC_MNXT:
 		  case KC_MPLY:
 		  case KC_MSTP:
-			rgb_matrix_set_color(led_idx, YELLOW);
+			set_color(led_idx, MEDIA_CLR);
 			break;
 		  case KC_WH_L:
 		  case KC_WH_D:
@@ -224,11 +289,16 @@ bool rgb_matrix_indicators_user(void) {
 		  case KC_DOWN:
 		  case KC_UP:
 		  case KC_RIGHT:
-			rgb_matrix_set_color(led_idx, BLUE);
+			set_color(led_idx, MOVEMENT_CLR);
 			break;
 		  case KC_NO:
 			rgb_matrix_set_color(led_idx, BLACK);
 		  }
+		}
+		if (set) {
+		  HSV hsv = { hue, current_sat, current_val };
+		  RGB rgb = hsv_to_rgb(hsv);
+		  rgb_matrix_set_color(led_idx, rgb.r, rgb.g, rgb.b);
 		}
 	  }
 	}
@@ -248,13 +318,9 @@ void raw_hid_receive_user(uint8_t *data, uint8_t length) {
   }
 }
 
-#define USER0 (DYNAMIC_KEYMAP_MACRO_COUNT + 0)
-#define USER1 (DYNAMIC_KEYMAP_MACRO_COUNT + 1)
-#define USER2 (DYNAMIC_KEYMAP_MACRO_COUNT + 2)
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-  case USER0:
+  case QK_USER_0:
 	if (record->event.pressed) {
 	  custom_lighting = !custom_lighting;
 	}
