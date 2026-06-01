@@ -97,7 +97,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define LETTERS_LEFT_CLR (LETTERS_CLR - 12)
 #define LETTERS_RIGHT_CLR (LETTERS_CLR + 12)
 #define CONTROL_CLR RED_HUE
-#define SPECIAL_CLR BLUE_HUE
+#define SPECIAL_CLR MAGENTA_HUE
+#define ACTION_CLR BLUE_HUE
 
 #define NUMBER_LAYER 1
 #define MOVEMENT_LAYER 2
@@ -214,7 +215,7 @@ bool rgb_matrix_indicators_user(void) {
 		case KC_LT:
 		case KC_GT:
 		case KC_PSCR:
-		  set_color(led_idx, NUMBERS_CLR);
+		  set_color(led_idx, SPECIAL_CLR);
 		  break;
 		case KC_KP_9:
 		case KC_KP_8:
@@ -224,7 +225,6 @@ bool rgb_matrix_indicators_user(void) {
 		case KC_KP_4:
 		case KC_KP_3:
 		case KC_KP_2:
-
 		case KC_KP_1:
 		case KC_KP_0:
 		case KC_KP_DOT:
@@ -333,7 +333,7 @@ bool rgb_matrix_indicators_user(void) {
 				 || keycode0f == KC_ESC
 				 || keycode0f == KC_ENT
 				 || keycode0f == KC_KP_ENTER) {
-		  set_color(led_idx, SPECIAL_CLR);
+		  set_color(led_idx, ACTION_CLR);
 		} else if (keycode0 > 0xFF) {
 		  rgb_matrix_set_color(led_idx, BLACK);
 		  // 3. Numbers (0-9)
@@ -351,7 +351,7 @@ bool rgb_matrix_indicators_user(void) {
 				 || keycode0f == KC_COMMA
 				 || keycode0f == KC_DOT
 				 || keycode0f == KC_SLASH) {
-		  set_color(led_idx, MAGENTA_HUE);
+		  set_color(led_idx, SPECIAL_CLR);
 		}
 		// 5. Left Hand vs Right Hand Alphabets
 		else if ((keycode0f>= KC_A && keycode0f<= KC_Z) || keycode0f== KC_SPACE || keycode0f== KC_TAB) {
