@@ -6,3 +6,9 @@
 
 #define VIAL_UNLOCK_COMBO_ROWS { 0, 0 }
 #define VIAL_UNLOCK_COMBO_COLS { 3, 5 }
+
+/* Invert vertical drag-scroll direction in firmware.
+ * Combined with X11 NaturalScrolling ON, this gives:
+ *   vertical = traditional (ball↓→scroll↓)
+ *   horizontal = natural  (ball→→scroll←) */
+#define PLOOPY_DRAGSCROLL_INVERT

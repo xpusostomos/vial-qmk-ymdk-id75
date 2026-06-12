@@ -186,7 +186,8 @@ bool rgb_matrix_indicators_user(void) {
 		/* 	  || keycode == KC_CUT || keycode == KC_COPY || keycode == KC_PSTE) { */
 		/* 	rgb_matrix_set_color(led_idx, GREEN); */
 		/* 	} */
-	  } else if (IS_LAYER_ON(NUMBER_LAYER) || IS_LAYER_ON(MOVEMENT_LAYER) || IS_LAYER_ON(FUNCTION_LAYER)) {
+	  } else if (IS_LAYER_ON(NUMBER_LAYER) || IS_LAYER_ON(MOVEMENT_LAYER) || IS_LAYER_ON(FUNCTION_LAYER) ||
+				 shift_pressed || ctrl_pressed || gui_pressed || alt_pressed) {
 		if (keycode0 == TG(NUMBER_LAYER)) {
 		  if (IS_LAYER_ON(MOVEMENT_LAYER)) {
 			set_color(led_idx, MOVEMENT_CLR);
@@ -317,55 +318,98 @@ bool rgb_matrix_indicators_user(void) {
 		case KC_RIGHT:
 		  set_color(led_idx, MOVEMENT_CLR);
 		  break;
-		case KC_NO:
-		  rgb_matrix_set_color(led_idx, BLACK);
-		}
-	  } else if (shift_pressed || ctrl_pressed || gui_pressed || alt_pressed) {
-		// 1. Modifier keys (e.g., Shift, Alt, GUI)
-		/* if (keycode0 != keycode0f) { */
-		/* set_white(); */
-		/* } else */
-		if (keycode0f >= KC_LCTL && keycode0f <= KC_RGUI) {
-		  set_color(led_idx, CONTROL_CLR);
-		} 
-		// 2. Action keys (Esc, Enter, etc.)
-		else if (keycode0 == QK_GRAVE_ESCAPE
-				 || keycode0f == KC_ESC
-				 || keycode0f == KC_ENT
-				 || keycode0f == KC_KP_ENTER) {
+		case QK_GRAVE_ESCAPE:
+		case KC_ESC:
+		case KC_ENT:
+		case KC_KP_ENTER:
 		  set_color(led_idx, ACTION_CLR);
-		} else if (keycode0 > 0xFF) {
-		  rgb_matrix_set_color(led_idx, BLACK);
-		  // 3. Numbers (0-9)
-		} else if ((keycode0f >= KC_1 && keycode0f <= KC_0)) {
-		  set_color(led_idx, NUMBERS_CLR);
-		}
-		// 4. Special Characters (Pipe, /, ?, :)k
-		else if (keycode0f == KC_MINUS
-				 || keycode0f == KC_EQUAL
-				 || keycode0f == KC_BSLS
-				 || keycode0f == KC_LBRC
-				 || keycode0f == KC_RBRC
-				 || keycode0f == KC_SCLN
-				 || keycode0f == KC_QUOT
-				 || keycode0f == KC_COMMA
-				 || keycode0f == KC_DOT
-				 || keycode0f == KC_SLASH) {
-		  set_color(led_idx, SPECIAL_CLR);
-		}
-		// 5. Left Hand vs Right Hand Alphabets
-		else if ((keycode0f>= KC_A && keycode0f<= KC_Z) || keycode0f== KC_SPACE || keycode0f== KC_TAB) {
-		  if (keycode0f == KC_F || keycode0f == KC_J) {
+		  break;
+		case KC_F:
+		case KC_J:
 			set_white();
-		  } else if (col < 6) { // Adjust '7' based on your physical split point
+		  break;
+		case KC_A:
+		case KC_B:
+		case KC_C:
+		case KC_D:
+		case KC_E:
+		case KC_G:
+		case KC_H:
+		case KC_I:
+		case KC_K:
+		case KC_L:
+		case KC_M:
+		case KC_N:
+		case KC_O:
+		case KC_P:
+		case KC_Q:
+		case KC_R:
+		case KC_S:
+		case KC_T:
+		case KC_U:
+		case KC_V:
+		case KC_W:
+		case KC_X:
+		case KC_Y:
+		case KC_Z:
+		case KC_SPACE:
+		case KC_TAB:
+		  if (col < 6) { // Adjust '7' based on your physical split point
 			set_color(led_idx, LETTERS_LEFT_CLR);
 		  } else {
 			set_color(led_idx, LETTERS_RIGHT_CLR);
 		  }
-		} else {
+		  break;
+		case KC_NO:
 		  rgb_matrix_set_color(led_idx, BLACK);
 		}
 	  }
+	  /* 	else if (shift_pressed || ctrl_pressed || gui_pressed || alt_pressed) { */
+	  /* 	// 1. Modifier keys (e.g., Shift, Alt, GUI) */
+	  /* 	/\* if (keycode0 != keycode0f) { *\/ */
+	  /* 	/\* set_white(); *\/ */
+	  /* 	/\* } else *\/ */
+	  /* 	if (keycode0f >= KC_LCTL && keycode0f <= KC_RGUI) { */
+	  /* 	  set_color(led_idx, CONTROL_CLR); */
+	  /* 	}  */
+	  /* 	// 2. Action keys (Esc, Enter, etc.) */
+	  /* 	else if (keycode0 == QK_GRAVE_ESCAPE */
+	  /* 			 || keycode0f == KC_ESC */
+	  /* 			 || keycode0f == KC_ENT */
+	  /* 			 || keycode0f == KC_KP_ENTER) { */
+	  /* 	  set_color(led_idx, ACTION_CLR); */
+	  /* 	} else if (keycode0 > 0xFF) { */
+	  /* 	  rgb_matrix_set_color(led_idx, BLACK); */
+	  /* 	  // 3. Numbers (0-9) */
+	  /* 	} else if ((keycode0f >= KC_1 && keycode0f <= KC_0)) { */
+	  /* 	  set_color(led_idx, NUMBERS_CLR); */
+	  /* 	} */
+	  /* 	// 4. Special Characters (Pipe, /, ?, :)k */
+	  /* 	else if (keycode0f == KC_MINUS */
+	  /* 			 || keycode0f == KC_EQUAL */
+	  /* 			 || keycode0f == KC_BSLS */
+	  /* 			 || keycode0f == KC_LBRC */
+	  /* 			 || keycode0f == KC_RBRC */
+	  /* 			 || keycode0f == KC_SCLN */
+	  /* 			 || keycode0f == KC_QUOT */
+	  /* 			 || keycode0f == KC_COMMA */
+	  /* 			 || keycode0f == KC_DOT */
+	  /* 			 || keycode0f == KC_SLASH) { */
+	  /* 	  set_color(led_idx, SPECIAL_CLR); */
+	  /* 	} */
+	  /* 	// 5. Left Hand vs Right Hand Alphabets */
+	  /* 	else if ((keycode0f>= KC_A && keycode0f<= KC_Z) || keycode0f== KC_SPACE || keycode0f== KC_TAB) { */
+	  /* 	  if (keycode0f == KC_F || keycode0f == KC_J) { */
+	  /* 		set_white(); */
+	  /* 	  } else if (col < 6) { // Adjust '7' based on your physical split point */
+	  /* 		set_color(led_idx, LETTERS_LEFT_CLR); */
+	  /* 	  } else { */
+	  /* 		set_color(led_idx, LETTERS_RIGHT_CLR); */
+	  /* 	  } */
+	  /* 	} else { */
+	  /* 	  rgb_matrix_set_color(led_idx, BLACK); */
+	  /* 	} */
+	  /* } */
 	  if (set) {
 		HSV hsv = { hue, target_sat, current_val };
 		RGB rgb = hsv_to_rgb(hsv);
@@ -388,6 +432,10 @@ void raw_hid_receive_user(uint8_t *data, uint8_t length) {
   }
 }
 
+enum custom_keycodes {
+    MY_SPECIAL_KEY = SAFE_RANGE,
+};
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
   case QK_USER_0:
@@ -395,6 +443,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	  custom_lighting = !custom_lighting;
 	}
 	return false;
+	break;
+  case QK_USER_1:
+	if (!record->event.pressed) {
+	  // If it was a quick tap, send Enter
+	  if (record->tap.count > 0) {
+		tap_code16(KC_ENT);
+	  } else {
+		// If it was a hold, check the physical Shift state
+		if (get_mods() & MOD_MASK_SHIFT) {
+		  tap_code16(KC_TILD); // Shift held -> ~
+		} else {
+		  tap_code16(KC_HASH); // No shift -> #
+		}
+	  }
+	}
+	return false; // Tells QMK we handled it, don't do anything else
 	break;
   case QK_GRAVE_ESCAPE:
 	uint8_t mods = get_mods();
