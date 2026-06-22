@@ -15,7 +15,12 @@
     {
       "name": "Drag Scroll",
       "title": "Drag Scroll",
-      "shortName": "DragScl"
+      "shortName": "Drag Scrl"
+    },
+    {
+      "name": "Drag Scrl Mo",
+      "title": "Drag Scroll Momentary",
+      "shortName": "Drag Scrl Mo"
     }
   ],
   "lighting": "none",

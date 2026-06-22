@@ -6,7 +6,8 @@
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * but WITHOUT ANY WARRANTY; without even the impl
+ ied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
@@ -15,40 +16,39 @@
  */
 
 #include QMK_KEYBOARD_H
+#include "print.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_ortho_5x15(
     QK_GRAVE_ESCAPE, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_INS, KC_BSPC,
-    KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSLS, KC_LBRC, KC_RBRC, KC_DEL,
-    MO(1), KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT, KC_ENT, KC_ENT,
+    KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSLS, KC_DEL,
+    MO(1), KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, TD(0), TD(1), KC_ENT,
     KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, RSFT_T(KC_HOME), KC_PGDN, KC_PGUP, KC_END,
-    KC_LCTL, KC_LGUI, KC_LALT, MO(3), KC_LBRC, KC_RBRC, KC_ENT, KC_SPC, KC_RALT, KC_RCTL, LT(2, KC_KP_ENTER), KC_LEFT, KC_DOWN, KC_UP, KC_RGHT
+    KC_LCTL, KC_LGUI, KC_LALT, MO(3), KC_ENT, KC_ENT, KC_SPC, KC_SPC, KC_RALT, KC_RCTL, LT(2, KC_KP_ENTER), KC_LEFT, KC_DOWN, KC_UP, KC_RGHT
   ),
-
-  [1] = LAYOUT_ortho_5x15(
-    S(KC_GRV), S(KC_1), S(KC_2), S(KC_3), S(KC_4), S(KC_5), S(KC_6), S(KC_7), S(KC_8), S(KC_9), S(KC_0), KC_PMNS, KC_PPLS, KC_PSLS, KC_PAST,
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_KP_7, KC_KP_8, KC_KP_9,
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_KP_4, KC_KP_5, KC_KP_6,
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, S(KC_COMM), S(KC_DOT), KC_TRNS, KC_NUM, KC_KP_1, KC_KP_2, KC_KP_3,
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_ENT, KC_SPC, KC_TRNS, KC_TRNS, KC_TRNS, KC_PEQL, KC_PSCR, KC_KP_0, KC_KP_DOT
+[1] = LAYOUT_ortho_5x15(
+    S(KC_GRV), S(KC_1), S(KC_2), S(KC_3), S(KC_4), S(KC_5), S(KC_6), S(KC_7), S(KC_8), S(KC_9), S(KC_0), KC_PMNS, KC_PPLS, KC_PSLS, KC_BSPC,
+    KC_NUM,    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_TRNS, KC_KP_7, KC_KP_8, KC_KP_9,
+    TO(0),     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_TRNS, KC_KP_4, KC_KP_5, KC_KP_6,
+    KC_NO,     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   S(KC_COMM), S(KC_DOT), KC_NO, KC_NUM, KC_KP_1, KC_KP_2, KC_KP_3,
+    KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_NO,   KC_NO,   QK_LLCK, KC_SPC,  KC_TRNS, KC_TRNS, KC_NO,   KC_PEQL, KC_PSCR, KC_KP_0, KC_PDOT
   ),
-
   [2] = LAYOUT_ortho_5x15(
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R,
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BTN1, KC_BTN2, KC_BTN3, KC_BTN4,
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R,
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, KC_PGDN, KC_PGUP, KC_END,
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT
+    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R,
+    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_BTN1, KC_BTN2, KC_BTN3, KC_BTN4,
+    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R,
+    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_HOME, KC_PGDN, KC_PGUP, KC_END,
+    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, QK_LLCK, KC_NO, KC_NO, KC_NO, TO(0), KC_LEFT, KC_DOWN, KC_UP, KC_RGHT
   ),
-
-  [3] = LAYOUT_ortho_5x15(
-    KC_NO, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_NO, KC_NO,
-    QK_BOOT, KC_F13, KC_F14, KC_F15, KC_F16, KC_F17, KC_F18, KC_F19, KC_F20, KC_F21, KC_F22, KC_F23, KC_F24, KC_NO, KC_MUTE,
-    TG(1), KC_MPRV, KC_MPLY, KC_MSTP, KC_MNXT, KC_NO, KC_NO, RM_ON, RGB_MOD, RGB_SPI, RGB_HUI, RGB_SAI, RGB_VAI, KC_BRIU, KC_VOLU,
-    KC_CAPS, KC_NO, KC_CUT, KC_COPY, KC_PSTE, KC_NO, KC_NO, RM_OFF, RGB_RMOD, RGB_SPD, RGB_HUD, RGB_SAD, RGB_VAD, KC_BRID, KC_VOLD,
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, S(KC_9), S(KC_0), KC_MINS, KC_NO, KC_NO, KC_NO, TG(2), KC_NO, TG(1), KC_NO, KC_NO
+    [3] = LAYOUT_ortho_5x15(
+    QK_BOOT, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_NO, TD(0),
+    KC_NO, KC_F13, KC_F14, KC_F15, KC_F16, KC_F17, KC_F18, KC_F19, KC_F20, KC_F21, KC_F22, KC_F23, KC_F24, KC_NO, KC_MUTE,
+    TG(1), KC_MPRV, KC_MPLY, KC_MSTP, KC_MNXT, RM_ON, RGB_MOD, RGB_SPI, RGB_HUI, RGB_SAI, RGB_VAI, KC_BRIU, S(KC_GRV), S(KC_2), KC_VOLU,
+    KC_CAPS, KC_NO, KC_CUT, KC_COPY, KC_PSTE, RM_OFF, RGB_RMOD, RGB_SPD, RGB_HUD, RGB_SAD, RGB_VAD, KC_BRID, S(KC_3), KC_QUOT, KC_VOLD,
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PSCR, KC_PAUS, KC_SCRL, KC_SPC, KC_TRNS, KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
   )
 };
+
 
 #define COLS 15
 #define ROWS 5
@@ -127,6 +127,7 @@ static bool host_is_muted = false;
 static bool custom_lighting = false;
 #define set_color(idx, huev) set = true; hue = huev
 #define set_white() set = true; target_sat = 0
+#define set_black() set = true; target_sat = 0 ; target_val = 0
 
 bool rgb_matrix_indicators_user(void) {
   uint8_t layer = get_highest_layer(layer_state);
@@ -150,6 +151,7 @@ bool rgb_matrix_indicators_user(void) {
 	  uint8_t hue;
 	  bool set = false;
 	  uint8_t target_sat = current_sat;
+	  uint8_t target_val = current_val;
 		  
 	  uint8_t led_idx = g_led_config.matrix_co[row][col];
 
@@ -169,201 +171,230 @@ bool rgb_matrix_indicators_user(void) {
 	  /*   rgb_matrix_set_color(led_idx, NUMBERS); */
 	  /* } else */
 	  if (host_keyboard_led_state().caps_lock && (keycodec >= KC_A && keycodec <= KC_Z)) {
-		  if (keycode0f == KC_F || keycode0f == KC_J) {
-			set_white();
-		  } else if (col < 6) { // Adjust '7' based on your physical split point
-			set_color(led_idx, LETTERS_LEFT_CLR);
-		  } else {
-			set_color(led_idx, LETTERS_RIGHT_CLR);
-		  }
+		if (keycode0f == KC_F || keycode0f == KC_J) {
+		  set_white();
+		} else if (col < 6) { // Adjust '7' based on your physical split point
+		  set_color(led_idx, LETTERS_LEFT_CLR);
+		} else {
+		  set_color(led_idx, LETTERS_RIGHT_CLR);
+		}
 	  } else
 		if (layer == EXTRA_LAYER) {
-		/* if ((col >= 1 && col < 13 && row < 2) */
-		if (keycodec != KC_TRNS && keycodec != KC_NO) {
-		  set_color(led_idx, GREEN_HUE);
-		}
-		/*   if ((keycode >= KC_F1 && keycode <= KC_F24) */
-		/* 	  || keycode == KC_CUT || keycode == KC_COPY || keycode == KC_PSTE) { */
-		/* 	rgb_matrix_set_color(led_idx, GREEN); */
-		/* 	} */
-	  } else if (IS_LAYER_ON(NUMBER_LAYER) || IS_LAYER_ON(MOVEMENT_LAYER) || IS_LAYER_ON(FUNCTION_LAYER) ||
-				 shift_pressed || ctrl_pressed || gui_pressed || alt_pressed) {
-		if (keycode0 == TG(NUMBER_LAYER)) {
-		  if (IS_LAYER_ON(MOVEMENT_LAYER)) {
+		  /* if ((col >= 1 && col < 13 && row < 2) */
+		  if (keycodec != KC_TRNS && keycodec != KC_NO) {
+			set_color(led_idx, GREEN_HUE);
+		  }
+		  /*   if ((keycode >= KC_F1 && keycode <= KC_F24) */
+		  /* 	  || keycode == KC_CUT || keycode == KC_COPY || keycode == KC_PSTE) { */
+		  /* 	rgb_matrix_set_color(led_idx, GREEN); */
+		  /* 	} */
+		} else if (IS_LAYER_ON(NUMBER_LAYER) || IS_LAYER_ON(MOVEMENT_LAYER) || IS_LAYER_ON(FUNCTION_LAYER) ||
+				   shift_pressed || ctrl_pressed || gui_pressed || alt_pressed) {
+		  if (keycode0 == TG(NUMBER_LAYER)) {
+			if (IS_LAYER_ON(MOVEMENT_LAYER)) {
+			  set_color(led_idx, MOVEMENT_CLR);
+			} else if (IS_LAYER_ON(NUMBER_LAYER)) {
+			  set_color(led_idx, NUMBERS_CLR);
+			}
+		  }
+		  switch (keycodec) {
+		  case KC_TILD:
+		  case KC_EXLM:
+		  case KC_AT:
+		  case KC_HASH:
+		  case KC_DLR:
+		  case KC_PERC:
+		  case KC_CIRC:
+		  case KC_AMPR:
+		  case KC_ASTR:
+		  case KC_LPRN:
+		  case KC_RPRN:
+		  case KC_MINUS:
+		  case KC_KP_EQUAL:
+		  case KC_LT:
+		  case KC_GT:
+		  case KC_PSCR:
+			set_color(led_idx, SPECIAL_CLR);
+			break;
+		  case KC_KP_SLASH:
+			set_color(led_idx, LIME_HUE);
+			break;
+		  case KC_KP_ASTERISK:
+			set_color(led_idx, YELLOW_HUE);
+			break;
+		  case KC_KP_MINUS:
+			set_color(led_idx, ORANGE_HUE);
+			break;
+		  case KC_KP_PLUS:
+			set_color(led_idx, GREEN_HUE);
+			break;
+		  case KC_KP_9:
+		  case KC_KP_8:
+		  case KC_KP_7:
+		  case KC_KP_6:
+		  case KC_KP_5:
+		  case KC_KP_4:
+		  case KC_KP_3:
+		  case KC_KP_2:
+		  case KC_KP_1:
+		  case KC_KP_0:
+		  case KC_KP_DOT:
+			if (host_keyboard_led_state().num_lock) {
+			  if (keycodec == KC_KP_DOT) {
+				set_white();
+			  } else {
+				set_color(led_idx, NUMBERS_CLR);
+			  }
+			} else {
+			  if (keycodec == KC_KP_5) {
+				set_black();
+			  } else {
+				set_color(led_idx, PAD_ARROW_CLR);
+			  }
+			}
+			/* if (host_keyboard_led_state().num_lock) { */
+			/*   set_color(led_idx, NUMBERS_CLR); */
+			/* } else { */
+			/*   set_color(led_idx, PAD_ARROW_CLR); */
+			/* } */
+			break;
+		  case KC_NUM_LOCK:
+			if (host_keyboard_led_state().num_lock) {
+			  set_color(led_idx, PAD_ARROW_CLR);
+			} else {
+			  set_color(led_idx, NUMBERS_CLR);
+			}
+			break;
+		  case QK_BOOT:
+			set_color(led_idx, RED_HUE);
+			break;
+		  case KC_F1:
+		  case KC_F2:
+		  case KC_F3:
+		  case KC_F4:
+		  case KC_F5:
+		  case KC_F6:
+		  case KC_F7:
+		  case KC_F8:
+		  case KC_F9:
+		  case KC_F10:
+		  case KC_F11:
+		  case KC_F12:
+		  case KC_F13:
+		  case KC_F14:
+		  case KC_F15:
+		  case KC_F16:
+		  case KC_F17:
+		  case KC_F18:
+		  case KC_F19:
+		  case KC_F20:
+		  case KC_F21:
+		  case KC_F22:
+		  case KC_F23:
+		  case KC_F24:
+		  case KC_CUT:
+		  case KC_COPY:
+		  case KC_PSTE:
+			set_color(led_idx, FKEY_CLR);
+			break;
+		  case KC_BRIU:
+		  case KC_BRID:
+			set_color(led_idx, BRIGHT_CLR);
+		  case KC_VOLU:
+		  case KC_VOLD:
+		  case KC_MUTE:
+			set_color(led_idx, VOL_CLR);
+			break;
+		  case RGB_RMOD:
+		  case RGB_MOD:
+		  case RM_OFF:
+		  case RM_ON:
+		  case RGB_SPD:
+		  case RGB_SPI:
+		  case RGB_VAD:
+		  case RGB_VAI:
+		  case RGB_HUD:
+		  case RGB_HUI:
+		  case RGB_SAD:
+		  case RGB_SAI:
+			set_color(led_idx, RGB_CLR);
+			break;
+		  case KC_MPRV:
+		  case KC_MNXT:
+		  case KC_MPLY:
+		  case KC_MSTP:
+			set_color(led_idx, MEDIA_CLR);
+			break;
+		  case KC_WH_L:
+		  case KC_WH_D:
+		  case KC_WH_U:
+		  case KC_WH_R:
+		  case KC_BTN1:
+		  case KC_BTN2:
+		  case KC_BTN3:
+		  case KC_BTN4:
+		  case KC_MS_L:
+		  case KC_MS_D:
+		  case KC_MS_U:
+		  case KC_MS_R:
+		  case KC_HOME:
+		  case KC_PGUP:
+		  case KC_PGDN:
+		  case KC_END:
+		  case KC_LEFT:
+		  case KC_DOWN:
+		  case KC_UP:
+		  case KC_RIGHT:
+		  case KC_BACKSPACE:
 			set_color(led_idx, MOVEMENT_CLR);
-		  } else if (IS_LAYER_ON(NUMBER_LAYER)) {
-			set_color(led_idx, NUMBERS_CLR);
-		  }
-		}
-		switch (keycodec) {
-		case KC_TILD:
-		case KC_EXLM:
-		case KC_AT:
-		case KC_HASH:
-		case KC_DLR:
-		case KC_PERC:
-		case KC_CIRC:
-		case KC_AMPR:
-		case KC_ASTR:
-		case KC_LPRN:
-		case KC_RPRN:
-		case KC_MINUS:
-		case KC_KP_MINUS:
-		case KC_KP_PLUS:
-		case KC_KP_SLASH:
-		case KC_KP_ASTERISK:
-		case KC_KP_EQUAL:
-		case KC_LT:
-		case KC_GT:
-		case KC_PSCR:
-		  set_color(led_idx, SPECIAL_CLR);
-		  break;
-		case KC_KP_9:
-		case KC_KP_8:
-		case KC_KP_7:
-		case KC_KP_6:
-		case KC_KP_5:
-		case KC_KP_4:
-		case KC_KP_3:
-		case KC_KP_2:
-		case KC_KP_1:
-		case KC_KP_0:
-		case KC_KP_DOT:
-		case KC_NUM_LOCK:
-		  if (host_keyboard_led_state().num_lock) {
-			set_color(led_idx, NUMBERS_CLR);
-		  } else {
-			set_color(led_idx, PAD_ARROW_CLR);
-		  }
-		  break;
-		case QK_BOOT:
-		  set_color(led_idx, RED_HUE);
-		  break;
-		case KC_F1:
-		case KC_F2:
-		case KC_F3:
-		case KC_F4:
-		case KC_F5:
-		case KC_F6:
-		case KC_F7:
-		case KC_F8:
-		case KC_F9:
-		case KC_F10:
-		case KC_F11:
-		case KC_F12:
-		case KC_F13:
-		case KC_F14:
-		case KC_F15:
-		case KC_F16:
-		case KC_F17:
-		case KC_F18:
-		case KC_F19:
-		case KC_F20:
-		case KC_F21:
-		case KC_F22:
-		case KC_F23:
-		case KC_F24:
-		case KC_CUT:
-		case KC_COPY:
-		case KC_PSTE:
-		  set_color(led_idx, FKEY_CLR);
-		  break;
-		case KC_BRIU:
-		case KC_BRID:
-		  set_color(led_idx, BRIGHT_CLR);
-		case KC_VOLU:
-		case KC_VOLD:
-		case KC_MUTE:
-		  set_color(led_idx, VOL_CLR);
-		  break;
-		case RGB_RMOD:
-		case RGB_MOD:
-		case RM_OFF:
-		case RM_ON:
-		case RGB_SPD:
-		case RGB_SPI:
-		case RGB_VAD:
-		case RGB_VAI:
-		case RGB_HUD:
-		case RGB_HUI:
-		case RGB_SAD:
-		case RGB_SAI:
-		  set_color(led_idx, RGB_CLR);
-		  break;
-		case KC_MPRV:
-		case KC_MNXT:
-		case KC_MPLY:
-		case KC_MSTP:
-		  set_color(led_idx, MEDIA_CLR);
-		  break;
-		case KC_WH_L:
-		case KC_WH_D:
-		case KC_WH_U:
-		case KC_WH_R:
-		case KC_BTN1:
-		case KC_BTN2:
-		case KC_BTN3:
-		case KC_BTN4:
-		case KC_MS_L:
-		case KC_MS_D:
-		case KC_MS_U:
-		case KC_MS_R:
-		case KC_HOME:
-		case KC_PGUP:
-		case KC_PGDN:
-		case KC_END:
-		case KC_LEFT:
-		case KC_DOWN:
-		case KC_UP:
-		case KC_RIGHT:
-		  set_color(led_idx, MOVEMENT_CLR);
-		  break;
-		case QK_GRAVE_ESCAPE:
-		case KC_ESC:
-		case KC_ENT:
-		case KC_KP_ENTER:
-		  set_color(led_idx, ACTION_CLR);
-		  break;
-		case KC_F:
-		case KC_J:
+			break;
+		  case QK_GRAVE_ESCAPE:
+		  case KC_ESC:
+		  case KC_ENT:
+		  case KC_KP_ENTER:
+			set_color(led_idx, ACTION_CLR);
+			break;
+		  case KC_F:
+		  case KC_J:
 			set_white();
-		  break;
-		case KC_A:
-		case KC_B:
-		case KC_C:
-		case KC_D:
-		case KC_E:
-		case KC_G:
-		case KC_H:
-		case KC_I:
-		case KC_K:
-		case KC_L:
-		case KC_M:
-		case KC_N:
-		case KC_O:
-		case KC_P:
-		case KC_Q:
-		case KC_R:
-		case KC_S:
-		case KC_T:
-		case KC_U:
-		case KC_V:
-		case KC_W:
-		case KC_X:
-		case KC_Y:
-		case KC_Z:
-		case KC_SPACE:
-		case KC_TAB:
-		  if (col < 6) { // Adjust '7' based on your physical split point
-			set_color(led_idx, LETTERS_LEFT_CLR);
-		  } else {
-			set_color(led_idx, LETTERS_RIGHT_CLR);
+			break;
+		  case KC_A:
+		  case KC_B:
+		  case KC_C:
+		  case KC_D:
+		  case KC_E:
+		  case KC_G:
+		  case KC_H:
+		  case KC_I:
+		  case KC_K:
+		  case KC_L:
+		  case KC_M:
+		  case KC_N:
+		  case KC_O:
+		  case KC_P:
+		  case KC_Q:
+		  case KC_R:
+		  case KC_S:
+		  case KC_T:
+		  case KC_U:
+		  case KC_V:
+		  case KC_W:
+		  case KC_X:
+		  case KC_Y:
+		  case KC_Z:
+		  case KC_SPACE:
+		  case KC_TAB:
+			if (col < 6) { // Adjust '7' based on your physical split point
+			  set_color(led_idx, LETTERS_LEFT_CLR);
+			} else {
+			  set_color(led_idx, LETTERS_RIGHT_CLR);
+			}
+			break;
+		  case KC_NO:
+			set_black();
+			/* rgb_matrix_set_color(led_idx, BLACK); */
 		  }
-		  break;
-		case KC_NO:
-		  rgb_matrix_set_color(led_idx, BLACK);
 		}
-	  }
 	  /* 	else if (shift_pressed || ctrl_pressed || gui_pressed || alt_pressed) { */
 	  /* 	// 1. Modifier keys (e.g., Shift, Alt, GUI) */
 	  /* 	/\* if (keycode0 != keycode0f) { *\/ */
@@ -411,7 +442,7 @@ bool rgb_matrix_indicators_user(void) {
 	  /* 	} */
 	  /* } */
 	  if (set) {
-		HSV hsv = { hue, target_sat, current_val };
+		HSV hsv = { hue, target_sat, target_val };
 		RGB rgb = hsv_to_rgb(hsv);
 		rgb_matrix_set_color(led_idx, rgb.r, rgb.g, rgb.b);
 	  }
@@ -432,11 +463,35 @@ void raw_hid_receive_user(uint8_t *data, uint8_t length) {
   }
 }
 
-enum custom_keycodes {
-    MY_SPECIAL_KEY = SAFE_RANGE,
+enum user_keycodes {
+    FOO = QK_KB_0,
+	HASH_TILDE,
+	GRV_AT
 };
 
+/** Hack to get around tapdance bug */
+static uint16_t last_release_time = 0;
+static uint16_t last_release_key = 0;
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  debug_enable=true;
+  debug_keyboard=true;
+  debug_matrix=false;
+  uint32_t mods = get_mods();
+  uint16_t time_diff = UINT16_MAX;
+  uprintf("DEBUG: Keycode detected: %d pressed: %d type: %d\n", keycode, record->event.pressed, record->event.type);
+  if (!record->event.pressed) {
+	last_release_time = timer_read();
+	last_release_key = keycode;
+  } else {
+	/** Hack to get around tapdance bug */
+	if (last_release_key == keycode) {
+	  time_diff = timer_read() - last_release_time;
+	} else {
+	  time_diff = UINT16_MAX;
+	}
+  }
+
   switch (keycode) {
   case QK_USER_0:
 	if (record->event.pressed) {
@@ -444,42 +499,98 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	}
 	return false;
 	break;
-  case QK_USER_1:
-	if (!record->event.pressed) {
-	  // If it was a quick tap, send Enter
-	  if (record->tap.count > 0) {
-		tap_code16(KC_ENT);
-	  } else {
-		// If it was a hold, check the physical Shift state
-		if (get_mods() & MOD_MASK_SHIFT) {
-		  tap_code16(KC_TILD); // Shift held -> ~
+  case HASH_TILDE:
+    if (record->event.pressed) {
+        uint16_t target_key = (get_mods() & MOD_MASK_SHIFT) ? KC_GRV : KC_3;
+		add_weak_mods(MOD_MASK_SHIFT);
+		if (time_diff != UINT16_MAX && time_diff < 20) {
+		  tap_code16(target_key);
 		} else {
-		  tap_code16(KC_HASH); // No shift -> #
+		  register_code(target_key);
+		  set_mods(mods);
 		}
-	  }
-	}
-	return false; // Tells QMK we handled it, don't do anything else
-	break;
-  case QK_GRAVE_ESCAPE:
-	uint8_t mods = get_mods();
-	
-	if (!record->event.pressed && is_key_pressed(KC_GRV)) {
+    } else {
 	  unregister_code(KC_GRV);
-	  send_keyboard_report();
+	  unregister_code(KC_3);
+    }
+	return false;
+    break;
+	
+  /* 	if (!record->event.pressed && is_key_pressed(KC_GRV)) { */
+  /* 	  unregister_code(KC_GRV); */
+  /* 	  send_keyboard_report(); */
+  /* 	  return false; */
+  /* 	} */
+  /* 	if (!record->event.pressed && is_key_pressed(KC_3)) { */
+  /* 	  unregister_code(KC_3); */
+  /* 	  send_keyboard_report(); */
+  /* 	  return false; */
+  /* 	} */
+  /* 	if (record->event.pressed) { */
+  /* 		if (mods & MOD_MASK_SHIFT) { */
+  /* 		  add_weak_mods(MOD_MASK_SHIFT); */
+  /* 		  register_code(KC_GRV); */
+  /* 		  //		  send_keyboard_report(); */
+  /* 		} else { */
+  /* 		  add_weak_mods(MOD_MASK_SHIFT); */
+  /* 		  register_code(KC_3); */
+  /* 		  //		  send_keyboard_report(); */
+  /* 		} */
+  /* 		set_mods(mods); */
+  /* 		return false; */
+  /* 	} */
+  /* 	break; */
+  case GRV_AT:
+	if (record->event.pressed) {
+	  uint16_t target_key = (get_mods() & MOD_MASK_SHIFT) ? KC_2 : KC_GRV;
+	  if (mods & MOD_MASK_SHIFT) {
+		add_weak_mods(MOD_MASK_SHIFT);
+	  }
+	  if (time_diff != UINT16_MAX && time_diff < 20) {
+		tap_code16(target_key);
+	  } else {
+		register_code(target_key);
+		set_mods(mods);
+	  }
+	  /*   register_code(KC_2); */
+	  /*   send_keyboard_report(); */
+	  /* } else { */
+	  /*   /\* del_mods(MOD_MASK_SHIFT); *\/ */
+	  /*   register_code(KC_GRV); */
+	  /*   send_keyboard_report(); */
+	  /* } */
+	  /* set_mods(mods); */
 	  return false;
+	} else {
+	/* if (!record->event.pressed && is_key_pressed(KC_GRV)) { */
+	  unregister_code(KC_GRV);
+	  /* send_keyboard_report(); */
+	  /* return false; */
+	/* } */
+	/* if (!record->event.pressed && is_key_pressed(KC_2)){ */
+	  unregister_code(KC_2);
+	  /* send_keyboard_report(); */
+	  return false;
+	/* } */
 	}
-    
+	break;
+ case QK_GRAVE_ESCAPE:
 	// Check if GUI is held down when you initially press the key
-	if (record->event.pressed && mods & MOD_BIT(KC_LGUI)) {
+   if (record->event.pressed && mods & MOD_MASK_GUI) {
 	  // 1. Kill the GUI modifier right now so the OS stops looking for shortcuts
-	  del_mods(MOD_BIT(KC_LGUI));
+	  del_mods(MOD_MASK_GUI);
 	  // 2. Press down the raw backtick key
 	  register_code(KC_GRV);
-	  send_keyboard_report();
-	  set_mods(get_mods() | (mods & MOD_BIT(KC_LGUI)));
+	  /* send_keyboard_report(); */
+	  set_mods(mods);
       
 	  return false; // Intercepted, bypass default QMK logic entirely
+	} else	if (!record->event.pressed && is_key_pressed(KC_GRV)) {
+	  unregister_code(KC_GRV);
+	  /* send_keyboard_report(); */
+	  return false;
 	}
+
   }
   return true;
 }
@@ -509,24 +620,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
    if device_info['usage_page'] == 0xFF60:
    target_device = device_info['path']
    break
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

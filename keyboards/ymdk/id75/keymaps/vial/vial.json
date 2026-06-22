@@ -4,6 +4,23 @@
   "productId": "0x0075",
   "lighting": "vialrgb",
   "matrix": { "rows": 5, "cols": 15 },
+  "customKeycodes": [
+    {
+      "name": "DPI Config",
+      "title": "DPI Config",
+      "shortName": "DPI"
+    },
+    {
+      "name": "# ~",
+      "title": "Hash / Tilde",
+      "shortName": "#\n~"
+    },
+    {
+      "name": "GRV_AT",
+      "title": "Grave Accent / At",
+      "shortName": "`\n@"
+    }
+  ],
   "layouts": {
     "keymap": [
       [
